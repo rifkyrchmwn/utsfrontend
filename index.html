@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Produk UMKM Pertanian</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="container header-container">
+            <div>
+                <h1>E-Katalog UMKM Pertanian</h1>
+                <p class="subtitle">Sistem Informasi Hasil Tani Organik</p>
+            </div>
+            <!-- Toggle Mode Navigasi -->
+            <div class="mode-switch">
+                <button id="btn-mode-client" class="btn btn-nav active">Mode Client (Toko)</button>
+                <button id="btn-mode-admin" class="btn btn-nav">Mode Admin</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <!-- VIEW CLIENT (KATALOG & BELI) -->
+        <section id="view-client" class="view-section">
+            <div class="card">
+                <div class="catalog-header">
+                    <h2>Katalog Produk Tani</h2>
+                    <div class="filter-group">
+                        <label for="filter-category">Filter Kategori:</label>
+                        <select id="filter-category">
+                            <option value="">Semua Kategori</option>
+                            <option value="Beras & Biji-bijian">Beras & Biji-bijian</option>
+                            <option value="Sayur Segar">Sayur Segar</option>
+                            <option value="Buah-buahan">Buah-buahan</option>
+                            <option value="Pupuk & Nutrisi">Pupuk & Nutrisi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Container Card Produk Client -->
+                <div id="client-product-grid" class="product-grid"></div>
+            </div>
+        </section>
+
+        <!-- VIEW ADMIN (FORM + LIVE PREVIEW & TABEL LIST) -->
+        <section id="view-admin" class="view-section hidden">
+            <div class="admin-grid-layout">
+                <!-- Form Tambah/Edit Produk -->
+                <div class="card form-card">
+                    <h2>Panel Admin - Kelola Produk</h2>
+                    <form id="product-form" novalidate>
+                        <div class="form-group">
+                            <label for="product-name">Nama Produk Pertanian:</label>
+                            <input type="text" id="product-name" placeholder="Contoh: Beras Merah Organik 5kg">
+                            <small class="error-text"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-category">Kategori Tani:</label>
+                            <select id="product-category">
+                                <option value="">-- Pilih Kategori --</option>
+                                <option value="Beras & Biji-bijian">Beras & Biji-bijian</option>
+                                <option value="Sayur Segar">Sayur Segar</option>
+                                <option value="Buah-buahan">Buah-buahan</option>
+                                <option value="Pupuk & Nutrisi">Pupuk & Nutrisi</option>
+                            </select>
+                            <small class="error-text"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-price">Harga Satuan (Rp):</label>
+                            <input type="number" id="product-price" placeholder="Contoh: 85000">
+                            <small class="error-text"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-stock">Stok Barang (Unit/Kg):</label>
+                            <input type="number" id="product-stock" placeholder="Contoh: 20">
+                            <small class="error-text"></small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Simpan ke System</button>
+                    </form>
+                </div>
+
+                <!-- Live Preview Card Admin -->
+                <div class="card preview-card-box">
+                    <h2>Live Preview Card</h2>
+                    <p class="subtitle" style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Tampilan kartu
+                        produk saat diisi Admin:</p>
+                    <div id="live-preview-container">
+                        <!-- Rendered by ui.js -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabel Management Produk Admin -->
+            <div class="card table-card" style="margin-top: 20px;">
+                <h2>Daftar Inventaris Produk (Tabel Admin)</h2>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama Produk</th>
+                            <th>Kategori</th>
+                            <th>Harga</th>
+                            <th>Stok</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-table-body">
+                        <!-- Rendered by ui.js -->
+                    </tbody>
+                </table>
+                <div class="valuation-box">
+                    <h3>Total Valuasi Aset: <span id="total-valuation">Rp 0</span></h3>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL PEMBAYARAN CLIENT -->
+    <div id="checkout-modal" class="modal hidden">
+        <div class="modal-content card">
+            <span id="close-modal" class="close-btn">&times;</span>
+            <h2>Halaman Pembayaran / Checkout</h2>
+            <div id="checkout-details" class="checkout-details">
+                <!-- Rendered by ui.js -->
+            </div>
+            <form id="checkout-form" novalidate>
+                <div class="form-group">
+                    <label for="buyer-name">Nama Pembeli:</label>
+                    <input type="text" id="buyer-name" placeholder="Masukkan nama Anda">
+                    <small class="error-text"></small>
+                </div>
+                <div class="form-group">
+                    <label for="buyer-email">Alamat Email:</label>
+                    <input type="email" id="buyer-email" placeholder="contoh: pembeli@gmail.com">
+                    <small class="error-text"></small>
+                </div>
+                <div class="form-group">
+                    <label for="buyer-address">Alamat Pengiriman:</label>
+                    <input type="text" id="buyer-address" placeholder="Masukkan alamat lengkap">
+                    <small class="error-text"></small>
+                </div>
+                <div class="form-group">
+                    <label for="payment-method">Metode Pembayaran:</label>
+                    <select id="payment-method">
+                        <option value="">-- Pilih Metode Pembayaran --</option>
+                        <option value="Transfer Bank (BCA / Mandiri / BRI)">Transfer Bank (BCA / Mandiri / BRI)</option>
+                        <option value="E-Wallet (Gopay / OVO / Dana)">E-Wallet (Gopay / OVO / Dana)</option>
+                        <option value="QRIS">QRIS / Scan Standar Pembayaran</option>
+                        <option value="COD (Bayar di Tempat)">COD (Bayar di Tempat)</option>
+                    </select>
+                    <small class="error-text"></small>
+                </div>
+                <button type="submit" class="btn btn-success">Konfirmasi & Bayar Sekarang</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2026 STIKOM PGRI Banyuwangi - S1 Teknik Informatika.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+
+</html>
