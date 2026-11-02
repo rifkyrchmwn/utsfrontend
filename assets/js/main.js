@@ -3,6 +3,10 @@ import { validateProductForm, validateCheckoutForm, clearValidationStates } from
 import { renderClientCatalog, renderAdminTable, renderLivePreview } from './modules/ui.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    
+    console.log("DATA MOCK PRODUK PERTANIAN (ALL)");
+    console.table(getAllProducts());
+
     let editModeId = null;
 
     const btnClient = document.querySelector('#btn-mode-client');
